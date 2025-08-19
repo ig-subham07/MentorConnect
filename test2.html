@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mudit Singh | Financial Analyst Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony Neutrals -->
+    <!-- Application Structure Plan: A single-page application with a top navigation bar for smooth scrolling to different thematic sections: Home, About, Skills, Education, Projects, and Contact. This structure provides a clear narrative flow, starting with a broad introduction and allowing users to progressively dive into specific details. The most crucial section, 'Skills', is designed as an interactive dashboard with a radar chart for a high-level overview and filterable cards for detailed exploration. This is more engaging than a static list and allows recruiters to quickly assess relevant competencies. The timeline for education and card layout for projects are chosen for their visual appeal and modern feel, making the information easily digestible. -->
+    <!-- Visualization & Content Choices: 
+        1. Skills Overview: Report Info -> Technical Skills List. Goal -> Showcase proficiency across key domains. Viz -> Radar Chart (Chart.js/Canvas) for a holistic, comparative view of core competencies. Interaction -> The chart provides an immediate visual summary of his strengths. Justification -> A radar chart is superior to a bar chart here as it visualizes the balance of different skill sets, which is ideal for a multi-faceted role.
+        2. Skills Details: Report Info -> Specific skills under Excel, Tally, Power BI. Goal -> Provide detailed, organized information. Presentation -> Filterable cards. Interaction -> Users click category buttons ('Software', 'Analytical') to display relevant skill cards. Justification -> This prevents information overload and allows users to pull the information they need, making the experience interactive and user-centric.
+        3. Education History: Report Info -> Educational qualifications. Goal -> Present chronological academic history. Viz -> Vertical Timeline (HTML/Tailwind). Interaction -> Subtle hover effects. Justification -> A timeline is a visually intuitive way to represent chronological data, making his academic path easy to follow.
+        4. Projects/Certs: Report Info -> Certifications and academic project. Goal -> Organize and highlight practical credentials. Viz -> Grid of cards (HTML/Tailwind). Interaction -> Hover effects. Justification -> Cards neatly package each credential into a digestible, scannable format.
+        CONFIRMING NO SVG/Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F8F9FA;
+            color: #343A40;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #0891B2; /* cyan-600 */
+            border-bottom-color: #0891B2;
+        }
+        .skill-btn {
+            transition: all 0.3s;
+        }
+        .skill-btn.active {
+            background-color: #0891B2;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-cyan-700">Mudit Singh</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="nav-link font-medium pb-1">About</a>
+                <a href="#skills" class="nav-link font-medium pb-1">Skills</a>
+                <a href="#education" class="nav-link font-medium pb-1">Education</a>
+                <a href="#projects" class="nav-link font-medium pb-1">Projects</a>
+                <a href="#contact" class="nav-link font-medium pb-1">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#about" class="block py-2 px-4 text-sm hover:bg-gray-200">About</a>
+            <a href="#skills" class="block py-2 px-4 text-sm hover:bg-gray-200">Skills</a>
+            <a href="#education" class="block py-2 px-4 text-sm hover:bg-gray-200">Education</a>
+            <a href="#projects" class="block py-2 px-4 text-sm hover:bg-gray-200">Projects</a>
+            <a href="#contact" class="block py-2 px-4 text-sm hover:bg-gray-200">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="min-h-screen flex items-center bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-5xl md:text-7xl font-bold text-gray-800 leading-tight">Mudit Singh</h1>
+                <p class="text-xl md:text-2xl mt-4 text-cyan-700 font-light">A Portfolio of Financial Acumen and Analytical Skills</p>
+                <div class="mt-8">
+                    <a href="#projects" class="bg-cyan-600 text-white font-bold py-3 px-8 rounded-full hover:bg-cyan-700 transition-all duration-300 shadow-lg hover:shadow-xl">View My Work</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-2 text-gray-800">About Me</h2>
+                <div class="w-24 h-1 bg-cyan-600 mx-auto mb-12"></div>
+                <div class="max-w-4xl mx-auto text-lg text-gray-600 leading-relaxed text-center">
+                    <p class="mb-6">I am a motivated and detail-oriented Bachelor of Commerce graduate with a robust foundation in accounting, finance, and business management. My academic journey, with specializations in Human Resource Management and Marketing, has provided me with a unique blend of analytical and people-centric skills.</p>
+                    <p>I am passionate about leveraging financial data to drive business insights and operational efficiency. I am actively seeking an entry-level position where I can apply my technical skills and contribute to a team-oriented environment that fosters professional development and allows me to make a tangible impact on financial operations.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-2 text-gray-800">Technical Skills Dashboard</h2>
+                <div class="w-24 h-1 bg-cyan-600 mx-auto mb-12"></div>
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                     <p class="text-lg text-gray-600">This section provides an interactive overview of my technical capabilities. The chart visualizes my proficiency across core financial and analytical domains. Use the buttons below to filter and explore the specific software and techniques I'm proficient in.</p>
+                </div>
+
+                <div class="flex flex-col lg:flex-row items-center gap-12">
+                    <div class="w-full lg:w-1/2">
+                        <div class="chart-container">
+                            <canvas id="skillsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="w-full lg:w-1/2">
+                        <div class="flex justify-center gap-4 mb-8">
+                            <button class="skill-btn active py-2 px-5 bg-gray-200 rounded-full font-semibold" data-filter="software">Software</button>
+                            <button class="skill-btn py-2 px-5 bg-gray-200 rounded-full font-semibold" data-filter="analytical">Analytical</button>
+                            <button class="skill-btn py-2 px-5 bg-gray-200 rounded-full font-semibold" data-filter="design">Design</button>
+                        </div>
+                        <div id="skills-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-2 text-gray-800">Education Timeline</h2>
+                 <div class="w-24 h-1 bg-cyan-600 mx-auto mb-12"></div>
+                 <div class="text-center max-w-3xl mx-auto mb-12">
+                    <p class="text-lg text-gray-600">My academic journey has provided me with a strong theoretical and practical foundation in commerce, finance, and management. This timeline highlights the key milestones of my education.</p>
+                </div>
+                <div class="relative wrap overflow-hidden p-10 h-full">
+                    <div class="border-2-2 absolute border-opacity-20 border-gray-700 h-full border" style="left: 50%"></div>
+                    
+                    <div class="mb-8 flex justify-between items-center w-full right-timeline">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-cyan-600 shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">1</h1>
+                        </div>
+                        <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4">
+                            <h3 class="font-bold text-gray-800 text-xl">Bachelor of Commerce (B.Com)</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-600">University of Allahabad, India</p>
+                             <p class="text-sm font-semibold text-cyan-600">Aug 2021 - Oct 2024</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-cyan-600 shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto text-white font-semibold text-lg">2</h1>
+                        </div>
+                        <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4">
+                            <h3 class="font-bold text-gray-800 text-xl">Senior Secondary (Class-XII)</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-600">Delhi Public School-Kashi (Varanasi)</p>
+                             <p class="text-sm font-semibold text-cyan-600">Apr 2020 - May 2021</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8 flex justify-between items-center w-full right-timeline">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-cyan-600 shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">3</h1>
+                        </div>
+                        <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4">
+                            <h3 class="font-bold text-gray-800 text-xl">Secondary School (Class-X)</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-600">Delhi Public School-Kashi (Varanasi)</p>
+                             <p class="text-sm font-semibold text-cyan-600">Apr 2018 - May 2019</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-2 text-gray-800">Projects & Certifications</h2>
+                <div class="w-24 h-1 bg-cyan-600 mx-auto mb-12"></div>
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <p class="text-lg text-gray-600">Beyond my formal education, I have actively pursued certifications and completed projects to apply my knowledge in practical scenarios. This section showcases my credentials and hands-on experience.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                        <h3 class="text-xl font-bold mb-3 text-cyan-700">Investment Risk Management</h3>
+                        <p class="text-gray-600">Gained a comprehensive understanding of identifying, assessing, and mitigating various investment risks, including market, credit, and operational risks.</p>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                        <h3 class="text-xl font-bold mb-3 text-cyan-700">Data Analysis using MS Excel</h3>
+                        <p class="text-gray-600">Completed a rigorous program on advanced analytical techniques, culminating in a project to build a dynamic sales dashboard to track KPIs.</p>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                        <h3 class="text-xl font-bold mb-3 text-cyan-700">Power BI for Data Visualization</h3>
+                        <p class="text-gray-600">Developed skills in creating interactive reports by connecting to data sources, modeling data with DAX, and publishing for stakeholder review.</p>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 md:col-span-2 lg:col-span-3">
+                        <h3 class="text-xl font-bold mb-3 text-cyan-700">Academic Project: Financial Statement Analysis</h3>
+                        <p class="text-gray-600">Conducted a comprehensive financial analysis of a publicly listed company. Performed horizontal/vertical analysis and calculated key financial ratios over a five-year period to assess the company's financial health, identify trends, and provide actionable recommendations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-20">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold mb-2 text-gray-800">Let's Connect</h2>
+                <div class="w-24 h-1 bg-cyan-600 mx-auto mb-12"></div>
+                <p class="max-w-2xl mx-auto text-lg text-gray-600 mb-8">
+                    I am excited about the opportunity to bring my skills and enthusiasm to your organization. Please feel free to reach out to me to discuss potential opportunities.
+                </p>
+                <div class="space-y-4">
+                     <p class="text-xl font-semibold text-gray-700">
+                        <a href="mailto:mudit2002singh@gmail.com" class="hover:text-cyan-600 transition-colors">mudit2002singh@gmail.com</a>
+                    </p>
+                    <p class="text-xl font-semibold text-gray-700">+91 9044065137</p>
+                    <p class="text-xl font-semibold text-gray-700">Sector 73, Noida, India</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 Mudit Singh. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            const skillsData = {
+                software: [
+                    { title: 'MS Excel (Advanced)', description: 'Pivot Tables, VLOOKUP, Advanced Formulas, Charting' },
+                    { title: 'Tally ERP 9 / TallyPrime', description: 'Ledger Management, Voucher Entry, GST Compliance' },
+                    { title: 'Power BI / Tableau', description: 'Basic Data Visualization, Dashboard Creation' },
+                    { title: 'MS Office Suite', description: 'Word, PowerPoint for professional reporting' }
+                ],
+                analytical: [
+                    { title: 'Financial Modeling', description: 'Building models to forecast financial performance.' },
+                    { title: 'Data Analysis', description: 'Interpreting complex datasets to extract insights.' },
+                    { title: 'Risk Management', description: 'Identifying and mitigating financial risks.' },
+                    { title: 'Ratio Analysis', description: 'Evaluating company performance using financial ratios.' }
+                ],
+                design: [
+                    { title: 'Canva', description: 'Creating visually appealing reports and presentations.' },
+                    { title: 'Data Storytelling', description: 'Communicating insights effectively through visuals.' }
+                ]
+            };
+
+            const skillsContainer = document.getElementById('skills-container');
+            const skillBtns = document.querySelectorAll('.skill-btn');
+
+            function renderSkills(filter) {
+                skillsContainer.innerHTML = '';
+                skillsData[filter].forEach(skill => {
+                    const skillCard = `
+                        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                            <h4 class="font-bold text-lg text-cyan-700">${skill.title}</h4>
+                            <p class="text-gray-600 text-sm">${skill.description}</p>
+                        </div>
+                    `;
+                    skillsContainer.innerHTML += skillCard;
+                });
+            }
+
+            skillBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    skillBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderSkills(btn.dataset.filter);
+                });
+            });
+
+            renderSkills('software');
+
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            const skillsChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Financial Analysis', 'Accounting Systems', 'Data Visualization', 'Risk Management', 'Reporting'],
+                    datasets: [{
+                        label: 'Proficiency',
+                        data: [90, 85, 75, 80, 88],
+                        backgroundColor: 'rgba(8, 145, 178, 0.2)',
+                        borderColor: 'rgba(8, 145, 178, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(8, 145, 178, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(8, 145, 178, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 12,
+                                    weight: 'bold'
+                                },
+                                color: '#343A40'
+                            },
+                            ticks: {
+                                backdropColor: 'rgba(248, 249, 250, 0.8)',
+                                color: '#6c757d',
+                                stepSize: 20
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.formattedValue + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 60) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

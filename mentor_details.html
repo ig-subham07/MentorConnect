@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Directory - MentorConnect</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #eaf2f8;
+        }
+        .featured-mentor {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background-color: #eef5f9;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .featured-mentor img {
+            border-radius: 50%;
+            border: 3px solid #3498db;
+        }
+        .featured-mentor-bio {
+            flex: 1;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 30px 0;
+        }
+        .nav-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Meet Our Expert Mentors 🧑‍🏫</h1>
+        <p style="text-align: center;">Browse our list of available mentors. Find the right expert based on their domain, experience, and rating.</p>
+
+        <hr>
+
+        <!-- Mentor Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Domain</th>
+                    <th>Experience</th>
+                    <th>Availability</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Rajeev Sen</td>
+                    <td>DSA</td>
+                    <td>6 years</td>
+                    <td>Available</td>
+                    <td>★★★★★</td>
+                </tr>
+                <tr>
+                    <td>Ananya Rao</td>
+                    <td>Data Science</td>
+                    <td>4.5 years</td>
+                    <td>Booked</td>
+                    <td>★★★★☆</td>
+                </tr>
+                <tr>
+                    <td>Aryan Malik</td>
+                    <td>Full Stack</td>
+                    <td>5 years</td>
+                    <td>Available</td>
+                    <td>★★★★☆</td>
+                </tr>
+                <tr>
+                    <td>Meenal Jain</td>
+                    <td>Cybersecurity</td>
+                    <td>7 years</td>
+                    <td>Available</td>
+                    <td>★★★★★</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2>Featured Mentor of the Month</h2>
+        <div class="featured-mentor">
+            <img src="https://placehold.co/150x150/3498db/FFFFFF?text=RS" alt="Photo of Rajeev Sen">
+            <div class="featured-mentor-bio">
+                <h3>Rajeev Sen</h3>
+                <p>
+                    Rajeev is a Senior Software Engineer at a leading tech giant with a passion for algorithms and problem-solving. He specializes in preparing students for technical interviews at top companies and has a knack for breaking down complex DSA concepts into simple, understandable modules.
+                </p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <a href="mentee_directory.html" class="nav-link">See Who's Learning With Us →</a>
+        <a href="index.html" class="nav-link">← Back to Homepage</a>
+    </div>
+
+</body>
+</html>
